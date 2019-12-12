@@ -1,0 +1,9 @@
+utterance-results.csv
+bst-debug.log
+test_output
+.DS_store
+package-lock.json
+node_modules
+.env
+junit.xml
+.bespoken-internal
