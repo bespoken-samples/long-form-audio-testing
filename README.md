@@ -170,7 +170,8 @@ DataDog makes it easy to create a Dashboard:
       }
     ],
     "autoscale": true
-  }```
+  }
+  ```
 - Give your graphic a title and click on the "Done" button
 
 ### **Creating Alarms**
@@ -202,7 +203,8 @@ DataDog makes it easy to setup alarms, let's see how:
         "critical": 1
       }
     }
-  }```
+  }
+  ```
 - Click on the "Save" button
 
 ## Additional Topics
