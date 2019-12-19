@@ -4,15 +4,27 @@ cache:
   paths:
   - node_modules/
 
+# We have two stages to force the jobs to run sequentially
 stages:
-  - test
+  - show-tests
+  - launch-tests
 
-test:
-  stage: test
+show-tests:
+  stage: show-tests
   script:
    - npm install
-   - npm run utterances
+   - npm run show-tests
   artifacts:
     paths:
-    - utterance-results.csv
+    - results.csv
+    expire_in: 1 week
+
+launch-tests:
+  stage: launch-tests
+  script:
+   - npm install
+   - npm run launch-tests
+  artifacts:
+    paths:
+    - results.csv
     expire_in: 1 week
