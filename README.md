@@ -126,94 +126,19 @@ The CSV File is located in the `output` folder and contains the following:
 ### **DataDog**
 DataDog captures metrics related to how all the tests have performed. Each time we run the tests, and when `datadog` has been set as the `metric` mechanism to use in the `config.json` file, we push the result of each test to DataDog.
 
-In this example, we are using below metrics:
+In this example, we are using next metrics:
 - `utterance.success`
 - `utterance.failure`
 
-The metrics can be easily reported on through a DataDog Dashboard (see next section).
+The metrics can be easily reported on through a DataDog Dashboard. They also can be used to setup notifcations when certain conditions are triggered.
 
-They also can be used to setup notifcations when certain conditions are triggered as shown below.
+Read more about configuring DataDog in our [walkthrough](./docs/datadog.md).
 
-### **Creating A Dashboard**
-DataDog makes it easy to create a Dashboard:
-- Click on Dashboards, then select "New Dashboard" from the left menu
-![Creating a DataDog dashboard step 1][DataDogCreatingDashboard1]
-- Give the Dashboard a name and select "New Timeboard" 
-![Creating a DataDog dashboard step 2][DataDogCreatingDashboard2]
-- Click on "Add a graph"
-- Drag the "Timeseries" widget to the rectangular area below
-![Creating a DataDog dashboard step 3][DataDogCreatingDashboard3]
-- Click on the JSON editor and paste below content:
-  ```json
-  {
-    "viz": "timeseries",
-    "requests": [
-      {
-        "q": "sum:utterance.success{*}.as_count()",
-        "type": "bars",
-        "style": {
-          "palette": "cool",
-          "type": "solid",
-          "width": "normal"
-        },
-        "aggregator": "avg",
-        "conditional_formats": []
-      },
-      {
-        "q": "sum:utterance.failure{*}.as_count()",
-        "type": "bars",
-        "style": {
-          "palette": "warm",
-          "type": "solid",
-          "width": "normal"
-        }
-      }
-    ],
-    "autoscale": true
-  }
-  ```
-- Give your graphic a title and click on the "Done" button
 
-### **Creating Alarms**
-DataDog makes it easy to setup alarms, let's see how:
-- Go to Monitors on the left menu and select "New Monitor"
-![Creating a DataDog alarm step 1][DataDogCreatingAlarm1]
-- Select **Import** as the "monitor type"
-![Creating a DataDog alarm step 2][DataDogCreatingAlarm2]
-- Paste below content in the monitor definition area:
-  ```json
-  {
-    "name": "Long audio test failed",
-    "type": "metric alert",
-    "query": "sum(last_1h):sum:utterance.failure{job:show-tests}.as_count() >= 1",
-    "message": "Please review test results and take action. @all",
-    "tags": [],
-    "options": {
-      "notify_audit": true,
-      "locked": false,
-      "timeout_h": 0,
-      "new_host_delay": 300,
-      "require_full_window": false,
-      "notify_no_data": false,
-      "renotify_interval": "0",
-      "escalation_message": "",
-      "no_data_timeframe": null,
-      "include_tags": true,
-      "thresholds": {
-        "critical": 1
-      }
-    }
-  }
-  ```
-- Click on the "Save" button
+
 
 ## Additional Topics
 * Working With Circle CI - TBC
 * Working With CloudWatch - TBC
 * Working With PagerDuty - TBC
 
-[DataDogCreatingDashboard1]: ./images/DataDogCreatingDashboard1.png "Creating a DataDog dashboard step 1"
-[DataDogCreatingDashboard2]: ./images/DataDogCreatingDashboard2.png "Creating a DataDog dashboard step 2"
-[DataDogCreatingDashboard3]: ./images/DataDogCreatingDashboard3.png "Creating a DataDog dashboard step 3"
-[DataDogCreatingAlarm1]: ./images/DataDogCreatingAlarm1.png "Creating a DataDog alarm step 1"
-[DataDogCreatingAlarm2]: ./images/DataDogCreatingAlarm2.png "Creating a DataDog alarm step 2"
