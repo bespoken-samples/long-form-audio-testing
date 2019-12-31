@@ -1,17 +1,17 @@
-# Long Form Audio Testing
-This project provides a ready-to-use template for doing in-depth testing on long-form audio.
+# **Long Form Audio Testing**
+This project provides a ready-to-use template for doing in-depth testing on audio voice apps serving long audio streams, such as music players, radio stations and games.
 
-We store the utterances that we want to test in the file `input/utterances.csv`.
+The utterances we want to test are stored inside the `input` folder in the form of a CSV file: `input/utterances.csv`.
 
-## Getting Setup
-### Environment Management
-We use dotenv when running locally, which takes environment variables from a local `.env` file.
+## **Getting Setup**
+### **Environment Management**
+We use **dotenv** when running locally, which takes environment variables from a local `.env` file.
 
 To set this up, just make a copy of `example.env` and name it `.env`. Replace the values inside there with the correct values for your configuration.
 
 For running with continuous integration (such as Jenkins, Circle CI or Gitlab), these values should instead come from actual environment variables.
 
-### Configuration
+### **Configuration**
 The environment variables store sensitive credentials.
 
 Our `config.json` file stores information particular to how the tests should run, but of a non-sensitive nature.
@@ -47,16 +47,16 @@ For tests in which there are multiple steps required before we do the "official"
 
 Typically, this would involve launching a skill before saying the specific utterance we want to test, but more complex sequences are possible.
 
-### Virtual Device Setup
+### **Virtual Device Setup**
 * Create a virtual device with our [easy-to-follow guide here](https://read.bespoken.io/end-to-end/setup/#creating-a-virtual-device).
 * Add the newly created token to the `.env` file
 
-### DataDog Configuration
+### **DataDog Configuration**
 * Create a DataDog account.
 * Take the API key from the Integrations -> API section
 * Add it to the `.env` file
 
-## Running utterance resolution tests
+## **Running utterance resolution tests**
 These tests check whether or not the utterance names are being understood correctly by Alexa.
 
 To run the CSV-driven tests, enter this command:
@@ -64,12 +64,12 @@ To run the CSV-driven tests, enter this command:
 npm run utterances
 ```
 
-This will test each utterance defined in the utterances.csv file. The CSV file contains the following fields:
+This will test each utterance defined in the `utterances.csv` file. The CSV file contains the following fields:
 
 | Column | Description |
 | --- | --- |
-| utterance | The utterance to be said to Alexa
-| expectedResponses | One-to-many expected responses - each one is separated by a comma
+| `utterance` | The utterance to be said to Alexa
+| `expectedResponses` | One-to-many expected responses - each one is separated by a comma
 
 For the initial entries, we are typically just looking for the name of the recipe in the response. When the tests are run, here is what will happen:  
 > Bespoken Says: `get the recipe for giada chicken piccata`  
@@ -78,7 +78,7 @@ For the initial entries, we are typically just looking for the name of the recip
 
 This test will pass because the actual response contains the expected response from our CSV file.
 
-## Gitlab Configuration
+## **Gitlab Configuration**
 The gitlab configuration is defined by the file `.gitlab-ci.yml`. The file looks like this:
 ```yaml
 image: node:10
@@ -103,7 +103,7 @@ test:
 
 This build script runs the utterances and saves of the resulting CSV file.
 
-## Test Reporting
+## **Test Reporting**
 We have setup this project to make use of a few different types of reporting to show off what is possible.
 
 The reporting comes in these forms:
@@ -113,8 +113,8 @@ The reporting comes in these forms:
 
 Each is discussed in more detail below.
 
-### CSV File
-The CSV File contains the following output:
+### **CSV File**
+The CSV File is located in the `output` folder and contains the following:
 
 | Column | Description |
 | --- | --- |
@@ -123,20 +123,22 @@ The CSV File contains the following output:
 | success | Whether or not the test was successful
 | expectedResponses | The possible expected response back from the utterance
 
-### DataDog
-DataDog captures metrics related to how all the tests have performed.
+### **DataDog**
+DataDog captures metrics related to how all the tests have performed. Each time we run the tests, and when `datadog` has been set as the `metric` mechanism to use in the `config.json` file, we push the result of each test to DataDog.
 
-The metrics can be easily reported on.
+In this example, we are using next metrics:
+- `utterance.success`
+- `utterance.failure`
 
-They also can be used to setup notifcations when certain conditions are triggered.
+The metrics can be easily reported on through a DataDog Dashboard. They also can be used to setup notifcations when certain conditions are triggered.
 
-### Creating A Dashboard
-DataDog makes it easy to create a Dashboard.
+Read more about configuring DataDog in our [walkthrough](./docs/datadog.md).
 
-### Creating Alarms
-DataDog makes it easy to setup alarms.
+
+
 
 ## Additional Topics
 * Working With Circle CI - TBC
 * Working With CloudWatch - TBC
 * Working With PagerDuty - TBC
+

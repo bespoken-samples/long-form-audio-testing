@@ -6,4 +6,5 @@ package-lock.json
 node_modules
 .env
 junit.xml
-results.csv
+.idea
+.vscode
