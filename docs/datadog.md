@@ -2,10 +2,7 @@
 DataDog makes it easy to create a Dashboard:
 - Click on Dashboards, then select "New Dashboard" from the left menu
 - Give the Dashboard a name and select "New Timeboard" 
-<!-- ![Creating a DataDog dashboard step 2][DataDogCreatingDashboard2] -->
-<p align="center">
-    <img src="../images/DataDogCreatingDashboard2.png" width="50%" height="Auto">
-</p>
+![Creating a DataDog dashboard step 2][DataDogCreatingDashboard2]
 - Click on "Add a graph"
 - Drag the "Timeseries" widget to the rectangular area below
 ![Creating a DataDog dashboard step 3][DataDogCreatingDashboard3]
